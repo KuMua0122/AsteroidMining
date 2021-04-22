@@ -15,7 +15,7 @@ public class Map {
     int SunStormIdNum =0;
     public int Round = 0;
 
-    public Map(){};
+   
     //Test case of CreateAsteroid
         //create 30 asteroid with format(A01-A30)
     public void CreateAsteroid(){
@@ -35,7 +35,7 @@ public class Map {
             //要在settler 的构造函数更改,构造要添加id的参数
         int set=Alivesettler.size()+1;
         Alivesettler.add(new Settler("settler"+Integer.toString(set)));
-        Testing.methodStart("Map.CreateSettler()");
+    
     }
     //Test case of CreateRobot
         //create 1 robot with format(robot1-robot9) use Aliverobot.size to have the ID
@@ -45,7 +45,7 @@ public class Map {
             //要在robot 的构造函数更改,构造要添加id的参数
         RobotIdNum += 1;
         Aliverobot.add(new Robot("Robot"+Integer.toString(RobotIdNum)));
-        Testing.methodStart("Map.CreateRobot()");
+     
     }
     //Test case of CreateSunstorm
         //create 1 sunstorm with format(sunstorm1-sunstorm9) use Alivesunstorm.size to have the ID
@@ -54,8 +54,7 @@ public class Map {
     {
          //要在sunstorm 的构造函数更改,构造要添加id的参数
         SunStormIdNum += 1;
-        Alivesunstorm.add(new SunStorm("SunStorm"+Integer.toString(SunStormIdNum)));
-        Testing.methodStart("Map.CreateSunstorm()");
+        Alivesunstorm.add(new SunStorm("SunStorm"+Integer.toString(SunStormIdNum)));  
     }
 
     //Test case of CreateGate
@@ -65,12 +64,12 @@ public class Map {
         //a pair of gates
         gates.add(new Teleportaion_Gate("G"+Integer.toString(GateIdNum)+"1"));
         gates.add(new Teleportaion_Gate("G"+Integer.toString(GateIdNum)+"2"));
-        Testing.methodStart("Map.CreateGate()");
+       
     }
     //Test case of Step
     public void Step()
     {
         ++Round;
-        Testing.methodStart("Map.Step()");
+      
     }
 }

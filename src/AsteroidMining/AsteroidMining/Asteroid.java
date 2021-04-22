@@ -1,84 +1,103 @@
 package AsteroidMining.AsteroidMining;
 
-import java.lang.reflect.Field;
-
 //A class named Asteroid which can contain Resources or workers in the core
-public class Asteroid extends Thing{
+public class Asteroid extends Thing {
       private String resource;
-      public String getresource() {
-    	  return resource;
-      }
-      public void setresource(String a) {
-    	  resource = a;
-      }
       private int depth;
-      public int getdepth() {
-    	  return depth;
-      }
-      public void setdepth(int a) {
-    	  depth = a;
-      }
+
       private int distancetosun;
-      public int getdistance() {
-    	  return distancetosun;
-      }
-      public void setdistance(int a) {
-    	  distancetosun = a;
-      }
-      
-      private String TPid;
-      public String getTPid() {
-    	  return TPid;
-      }
-      public void setTPid(String a) {
-    	     TPid = a;
-      }
-      
+      private int period =10;
       private String id;
+      private String TPid;
+      // private ArrayList<String> Workersonit = new ArrayList<String>();
+      private int Movedirection;
+
+      public String getresource() {
+            return resource;
+      }
+
+      public void setresource(String a) {
+            resource = a;
+      }
+
+      public int getdepth() {
+            return depth;
+      }
+
+      public void setdepth(int a) {
+            depth = a;
+      }
+
+      public int getdistance() {
+            return distancetosun;
+      }
+
+      public void setdistance(int a) {
+            distancetosun = a;
+      }
+
+      public String getTPid() {
+            return TPid;
+      }
+
+      public void setTPid(String a) {
+            TPid = a;
+      }
+
       public String getid() {
-    	  return id;
+            return id;
       }
+
       public void setid(String a) {
-    	     id = a;
+            id = a;
       }
-      
-      public Asteroid() {}; 
-      //Decide Sun move dircetion to the asteroid and Move Sun Distance by one
+
+      public Asteroid(String string) {
+            super(string);
+      };
+
+      // Decide Sun move dircetion to the asteroid and Move Sun Distance by one
       public void Move() {
-            Testing.methodStart("Asteroid.Move()");
-            //its logic stuff, please omit this
-                        //if(distancetosun<period){
-                        //          Movedirection=1;
-                        //          Step();
-                        //    }
-                        //if(distancetosun==period){
-                        //          Movedirection=-1;
-                        //          Step();
-                        //    }     
-                        //if(distancetosun==0){
-                        //          Movedirection=1;
-                        //          Step();
-                        //    }   
+            if (distancetosun < period) {
+                  Movedirection = 1;
+                  Step();
+            }
+            if (distancetosun == period) {
+                  Movedirection = -1;
+                  Step();
+            }
+            if (distancetosun == 0) {
+                  Movedirection = 1;
+                  Step();
+            }
       }
-      //Asteroid RemoveResource form core
+
+      // Asteroid RemoveResource form core
       public void Removeresource() {
-    	      Testing.methodStart("Asteroid.Removeresource()");
-            Testing.methodEnd("Asteroid.Removeresource()");
+            resource = "empty";
       }
-      //Step Asteroid to move sun peroid
+
+      // Step Asteroid to move sun peroid
       public void Step() {
-            Testing.methodStart("Asteroid.Step()");
-                  Move();
-            Testing.methodEnd("Asteroid.Step()");
-            //its logic stuff, please omit this
-                  //distancetosun+=Movedirection;
-                  // System.out.println("The current distance to sun is:" +distancetosun);
+            distancetosun += Movedirection;
+            System.out.println("The current distance to sun is:" + distancetosun);
       }
-      //Accept settler to the core to protect
-      public void Protect(Worker w,Field f) {
-            Testing.methodStart("Asteroid.Protect()");
-            f.Hide=true;
-            f.Accept(w);
-            Testing.methodEnd("Asteroid.Protect()");
+
+      public void Protect(Worker w) {
+          w.SetProtected();
       }
+     
+      public void Explode(Field f) {
+            Removeresource();
+            f.Remove(this);
+            System.out.println("The radioactive asteroid is in the perihelion and exploded");
+      }
+      /*
+       * public void Movehere(Worker w){ w.Onwhichasteroiod = this.id;
+       * this.Workersonit.add(Integer.toString(w.id));
+       */
+
+
+  
+  
 }

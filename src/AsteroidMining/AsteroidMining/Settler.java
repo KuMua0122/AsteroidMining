@@ -1,8 +1,6 @@
 package AsteroidMining.AsteroidMining;
-import java.awt.Robot;
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
@@ -17,7 +15,7 @@ public class Settler extends Worker {
     //settler current field
     Field f = new Field();
     //settler current asteroid
-    Asteroid a = new Asteroid();
+    Asteroid a = null;
     //resources in the settler bag
     ArrayList<String> resourcesList = new ArrayList<String>();
     
@@ -26,8 +24,9 @@ public class Settler extends Worker {
     //teleport gate
     ArrayList<Teleportaion_Gate> gates= new ArrayList<Teleportaion_Gate>();
     //resources be carried by settler
-    Resource r = new Resource();
-
+    public Settler(String string) {
+       super(string);
+   }
     //Mine
     //Settler get resource from Asteroid
     // and at same time Asteroid remove it by core
@@ -50,15 +49,15 @@ public class Settler extends Worker {
     		waterice.sublime(getcf());
     		return;
     	}
-    	for(int i=0;i<st.getonwhich().size();i++)
+    	for(int i=0;i<st.GetOnWhich().size();i++)
     	{
-    	if(st.getonwhich().get(i).getid().equals(getca().getid())){
+    	if(st.GetOnWhich().get(i).getid().equals(getca().getid())){
     		st.Touch(this);
     		return;
     	}	
     	}
         //Settler get resource from current asteroid
-        GetResource();
+        GetResource().add(getca().getresource());
         //current asteroid remove resource
         getca().Removeresource();
       }
@@ -85,9 +84,9 @@ public class Settler extends Worker {
     		waterice.sublime(getcf());
     		return;
     	}
-    	for(int i=0;i<st.getonwhich().size();i++)
+    	for(int i=0;i<st.GetOnWhich().size();i++)
     	{
-    	if(st.getonwhich().get(i).getid().equals(getca().getid())){
+    	if(st.GetOnWhich().get(i).getid().equals(getca().getid())){
     		st.Touch(this);
     		return;
     	}	
@@ -101,16 +100,16 @@ public class Settler extends Worker {
     //Not in the Test case
        //get the settler's resources
        public ArrayList<String> GetResource(){
-        return resources;
+        return resourcesList;
     }
 
 
     //Settler Remove its own resources
     //not in the testcase
-    public void Removeresources(Resource r){
+    public void Removeresources(String resource){
         for(int i=0;i<resourcesList.size();i++)
         {
-            if(resourcesList.get(i)==r.toString())
+            if(resourcesList.get(i)==resource.toString())
             {
                 this.resourcesList.remove(i);
                 System.out.println("Success remove resource.");
@@ -123,16 +122,9 @@ public class Settler extends Worker {
 
     //Settler Hide Test case
     //Settler hide into an asteroid
-    public void Hide(Field a){
-        if(a.hide==false)
-        {
-            //Add Settler into Asteroid
-            a.Protect(this);
-            System.out.println("Success hide.");
-            a.hide = true;
-        }
-        else
-        System.out.println("Some one already in the Asteroid.");
+    public void Hide(){
+        
+        ca.Protect(this);
        
     }
 
@@ -140,9 +132,9 @@ public class Settler extends Worker {
     //Settler create a robot and spend resources and then put into the field
     public void Constructrobot(Field f){
         //settler create robot
-        int iron;
-        int carbon;
-        int uranium;
+        int iron=0;
+        int carbon=0;
+        int uranium=0;
         for(int i=0;i<resourcesList.size();i++)
         {
            if(resourcesList.get(i)=="Iron")
@@ -154,8 +146,8 @@ public class Settler extends Worker {
         }
         if(iron>=1&&carbon>=1&&uranium>=1)
         {
-            Robot r = new Robot();
-             f.Accept(r);
+            Robot robot = new Robot(null);
+             f.Accept(robot);
              for(int i=0;i<resourcesList.size();i++)
                 {
                     if(resourcesList.get(i)=="Carbon")
@@ -200,12 +192,11 @@ public class Settler extends Worker {
         }
         if(iron>=2&&waterice>=1&&uranium>=1)
         {
-            Teleportaion_Gate g1 = new Teleportaion_Gate();
-            Teleportaion_Gate g2 = new Teleportaion_Gate();
+            Teleportaion_Gate g1 = new Teleportaion_Gate(null);
+            Teleportaion_Gate g2 = new Teleportaion_Gate(null);
             gates.add(g1);
             gates.add(g2);
             int count=0;
-             f.Accept(r);
              for(int i=0;i<resourcesList.size();i++)
                 {
                     if(resourcesList.get(i)=="Carbon")
