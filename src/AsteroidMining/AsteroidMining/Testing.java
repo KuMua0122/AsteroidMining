@@ -97,7 +97,7 @@ public class Testing{
             break;
 
             case 7:
-            s.Constructgate(f);
+            s.Constructrobot(f);
             break;
 
             case 8:
@@ -141,9 +141,9 @@ public class Testing{
             System.out.println("Robot1 alive, located: A2");
             System.out.println("sunstorm is affecting c1, c2, c3, b2, b3 , next round it will");
             System.out.println("move to c5,c6,c7,b5,b6");
-            System.out.println("A1: depth equals 0 , the resources is uranium£¬five rounds to");
+            System.out.println("A1: depth equals 0 , the resources is uranium,five rounds to");
             System.out.println("reach perihelion");
-            System.out.println(" A2£ºdepth equals 3 £¬ the resources is unknown, five rounds");
+            System.out.println(" A2:depth equals 3 : the resources is unknown, five rounds");
             System.out.println(" to reach perihelion");
             break;
 

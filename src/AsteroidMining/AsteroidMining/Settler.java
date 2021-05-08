@@ -34,9 +34,7 @@ public class Settler extends Worker implements CanDie{
         Settler s= new Settler();
         Testing.methodStart(" Settler.Mine()");
         
-       String enter;
-       System.out.println("Whether the explosion conditions are met at this time?(Yes or No)");
-       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+       
        
         //Settler get resource from Asteroid a
         s.GetResource();
@@ -45,22 +43,7 @@ public class Settler extends Worker implements CanDie{
        Testing.methodEnd(" Settler.Mine()");
 
        //Check explosion condition
-       enter = br.readLine();
-       if(enter.equals("Yes"))
-       {
-          ra.Explode(cf);
-          return;
-       }
-       //Check sunstorm condition
-       System.out.println("Whether the sun storm conditions are met at this time?(Yes or No)");
-       BufferedReader br1 = new BufferedReader(new InputStreamReader(System.in));
-       enter = br1.readLine();
-       if(enter.equals("Yes"))
-       {
-           //for test
-          st.Touch(s);
-          return;
-       }
+     
     }
 
     //Add resource to the Asteroid
@@ -226,7 +209,7 @@ public class Settler extends Worker implements CanDie{
             //check settler in the Asteroid
             System.out.println("Check if Settler is in an exist Asteroid");
             System.out.println("Check if Settler is in an exist Asteroid input 1");
-            System.out.println("Check if Settler is in an exist Asteroid input 2");
+            System.out.println("Check if Settler is in an not exist Asteroid input 2");
             enter = br.readLine();
             num = Integer.parseInt(enter);
             if(num==1) {
