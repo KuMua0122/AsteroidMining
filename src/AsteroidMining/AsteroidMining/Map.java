@@ -2,10 +2,6 @@ package AsteroidMining;
 
 //A class which used for creation and containing Field
 public class Map {
-    private ArrayList<settler> slist = new ArrayList<settler>();
-    private ArrayList<robot> rlist = new ArrayList<robot>();
-    private ArraList<Teleportation_Gate> glist= new ArrayList<Teleportaion_Gate>();
-    private int Round;
     
     //Test case of CreateAsteroid
     public void CreateAsteroid()
@@ -37,8 +33,5 @@ public class Map {
     public void Step()
     {
         Testing.methodStart("Map.Step()");
-    }
-    public Teleportation_Gate Getglist(){
-        return Arrlist<Teleportation_Gate> glist;
     }
 }

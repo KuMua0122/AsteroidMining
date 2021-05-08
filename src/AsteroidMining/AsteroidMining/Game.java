@@ -1,4 +1,6 @@
-package AsteroidMining;
+package AsteroidMining.AsteroidMining;
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,16 +9,13 @@ import java.io.InputStreamReader;
 public class Game {
     //Settler to be setted
    private Settler s;
-
+   Map map = new Map();
    //Test case of StartGame
    //Ask player in which game type want to be started and set settler
     public void StartGame()throws IOException
     {
         String enter;
-        Testing.methodStart("Game.StartGame()");
-        System.out.println("Please choose play mode:");
-        System.out.println("1:SinglePlayer");
-        System.out.println("2.MultiplePlayer");
+       
         BufferedReader br = new BufferedReader(new 
         InputStreamReader(System.in));
         enter = br.readLine();

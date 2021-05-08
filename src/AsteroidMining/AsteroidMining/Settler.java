@@ -1,6 +1,5 @@
 package AsteroidMining;
 
-import java.awt.Robot;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 
 
 //A user control Thing which can be died
-public class Settler extends Worker {
+public class Settler extends Worker implements CanDie{
 
     //settler current field
     Field f = new Field();
@@ -21,31 +20,13 @@ public class Settler extends Worker {
     Asteroid a = new Asteroid();
     //resources in the settler bag
     ArrayList<String> resources = new ArrayList<String>();
-    
     //teleport gate ID
     int teleportaion_Gate;
     //teleport gate
-    ArrayList<Gate> gates= new ArrayList<Gate>();
+    Teleportaion_Gate gate = new Teleportaion_Gate();
     //resources be carried by settler
     Resource r = new Resource();
-    
-    //Travel
-    public void  Travel() throws IOException
-    {
-	 cf.Remove(this);
-	 cf.GetNeighours();
-	 nf.Accept(this);
-	 a.Movehere(this);
-	if(a.distancetosun < 2 && a.resource.equals("uranium")&& a.depth){
-		this.die();
-	}
 
-	for(int i = 0 ; i < st.alist.size();i++){
-           if(st.alist.get(i).id == this.Onwhichasteroiod){
-			   st.Touch(this);
-		   }
-		}
-    }
     //Mine
     //Settler get resource from Asteroid
     // and at same time Asteroid remove it by core
@@ -53,9 +34,7 @@ public class Settler extends Worker {
         Settler s= new Settler();
         Testing.methodStart(" Settler.Mine()");
         
-       String enter;
-       System.out.println("Whether the explosion conditions are met at this time?(Yes or No)");
-       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+       
        
         //Settler get resource from Asteroid a
         s.GetResource();
@@ -64,22 +43,7 @@ public class Settler extends Worker {
        Testing.methodEnd(" Settler.Mine()");
 
        //Check explosion condition
-       enter = br.readLine();
-       if(enter.equals("Yes"))
-       {
-          ra.Explode(cf);
-          return;
-       }
-       //Check sunstorm condition
-       System.out.println("Whether the sun storm conditions are met at this time?(Yes or No)");
-       BufferedReader br1 = new BufferedReader(new InputStreamReader(System.in));
-       enter = br1.readLine();
-       if(enter.equals("Yes"))
-       {
-           //for test
-          st.Touch(s);
-          return;
-       }
+     
     }
 
     //Add resource to the Asteroid
@@ -144,156 +108,125 @@ public class Settler extends Worker {
     //Settler Remove its own resources
     //not in the testcase
     public void Removeresources(Resource r){
-        for(int i=0;i<resources.size();i++)
-        {
-            if(resources.get(i)==Removeresources(r))
-            {
-                this.resources.remove(r);
-                System.out.println("Success remove resource.");
-            }
-            else
-            System.out.println("You dont have such resource.");
-        }
-      
+        Testing.methodStart("Settler.Removeresources(Resources r)");
+        Testing.methodEnd(" Settler.Removeresources(Resources r)");
     }
 
     //Settler Hide Test case
     //Settler hide into an asteroid
-    public void Hide(Field a){
-        if(a.hide==false)
-        {
-            //Add Settler into Asteroid
-            a.Protect(this);
-            System.out.println("Success hide.");
-            a.hide = true;
-        }
-        else
-        System.out.println("Some one already in the Asteroid.");
-       
+    public void Hide(){
+        Testing.methodStart("Settler.Hide()");
+        //Add Settler into Asteroid
+        a.Protect(this);
+        Testing.methodEnd("Settler.Hide()");
     }
 
     //Settler construct Robot Test case
     //Settler create a robot and spend resources and then put into the field
     public void Constructrobot(Field f){
+        Testing.methodStart("Settler.Constructrobot()");
         //settler create robot
-        int iron;
-        int carbon;
-        int uranium;
-        for(int i=0;i<resources.size();i++)
-        {
-           if(resources(i)=="Iron")
-            iron++;
-            if(resources(i)=="Carbon")
-            carbon++;
-            if(resources(i)=="Uranium")
-            uranium++;
-        }
-        if(iron>=1&&carbon>=1&&uranium>=1)
-        {
-            Robot r = new Robot();
-             f.Accept(r);
-             for(int i=0;i<resources.size();i++)
-                {
-                    if(resources(i)=="Carbon")
-                    Removeresources(resources(i));
-                    break;
-                }
-                for(int i=0;i<resources.size();i++)
-                {
-                    if(resources(i)=="Carbon")
-                    Removeresources(resources(i));
-                    break;
-                }
-                for(int i=0;i<resources.size();i++)
-                {
-                    if(resources(i)=="Carbon")
-                    Removeresources(resources(i));
-                    break;
-                }
-            System.out.println("Success construct.");
-        }
-        else
-        System.out.println("Not enough resources.");
-       
-       
-       
+        Testing.methodStart("Settler.CreateRobot");
+        Robot r = new Robot();
+        System.out.println("Use resources to build resources");
+        Testing.methodEnd("Settler.CreateRobot");
+        f.Accept(r);
+        Testing.methodEnd("Settler.Constructrobot()");
     }
 
     //Settler constructgate Test case
     //Settler create gate by spending resources
-    public void Constructgate(Field f,Settler s){
-        int iron;
-        int waterice;
-        int uranium;
-        for(int i=0;i<resources.size();i++)
-        {
-           if(resources(i)=="Iron")
-            iron++;
-            if(resources(i)=="WaterIce")
-            waterice++;
-            if(resources(i)=="Uranium")
-            uranium++;
-        }
-        if(iron>=2&&waterice>=1&&uranium>=1)
-        {
-            Gate g1 = new Gate();
-            Gate g2 = new Gate();
-            gates.Add(g1);
-            gates.Add(g2);
-            int count=0;
-             f.Accept(r);
-             for(int i=0;i<resources.size();i++)
-                {
-                    if(resources(i)=="Carbon")
-                    Removeresources(resources(i));
-                    break;
-                }
-                for(int i=0;i<resources.size();i++)
-                {
-        
-                    if(resources(i)=="WaterIce")
-                    Removeresources(resources(i));
-                    count++;
-                    if(count=2)
-                    break;
-                }
-                for(int i=0;i<resources.size();i++)
-                {
-                    if(resources(i)=="Uranium")
-                    Removeresources(resources(i));
-                    break;
-                }
-            System.out.println("Success construct.");
-        }
-        else
-        System.out.println("Not enough resources.");
-       
+    public void Constructgate(Field f){
+        Testing.methodStart("Settler.Constructgate()");
+        //settler ConstructGate
+        Testing.methodStart("Settler.CreateTeleportaion-gate");
+        //Teleportaion_Gate tp = new Teleportaion_Gate();
+        System.out.println("Gate-1.");
+        Testing.methodEnd("Settler.CreateTeleportaion-gate");
+        Testing.methodEnd("Settler.Constructgate()");
     }
 
     //Settler BuildGate Test case
     //Settler build gate in the field and field will accept it
     //Check the sunstorm and perihelion explosion condition same time
-    public void BuildGate() {
-        if(f.gate==false&&s.gates!=null)
+    public void BuildGate() throws IOException{
+        //settler build gate in the asteroid
+        Testing.methodStart("Settler.BuildGate()");
+        System.out.println("Gate-1.");
+        //field and asteroid accept gate
+        f.Accept(this.gate);
+
+        //Check explosion condition
+        String enter;
+        System.out.println("Whether the explosion conditions are met at this time?(Yes or No)");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        enter = br.readLine();
+        if(enter.equals("Yes"))
         {
-            for(int i=0;i<= gates.size();i++) {
-               if(gates(i)!=null)
-               {
-                 f.Accept(gates(i));
-                 gates.Remove(gates(i));
-                 f.gate =true;
-                 System.out.println("Success build gate.");
-               }
-             }
+           ra.Explode(cf);
+           return;
         }
-        else
-        System.out.println("No gate in package.");
+        //Check sunstorm condition
+        System.out.println("Whether the sun storm conditions are met at this time?(Yes or No)");
+        BufferedReader br1 = new BufferedReader(new InputStreamReader(System.in));
+        enter = br1.readLine();
+        if(enter.equals("Yes"))
+        {
+            //for test
+        Settler s =new Settler();
+           st.Touch(s);
+           return;
+        }
+        Testing.methodEnd("Settler.BuildGate()");
+    }
+
+    //die
+    //Settler died and be removed by the field
+    public void Die(Field f){
+        Testing.methodStart(" Settler.Die()");
+        //field remove settler 
+        f.Remove(this);
+        //remove resources
+        System.out.println("Lost all resources.");
+        //Asteroid remove settler
+        f.Remove(this);
+        Testing.methodEnd(" Settler.Die()");
     }
     //SettlerBuildSpaceStation Test case
     //Settler Check the resources and the asteroid. 
     //then Build Space Station
     public void SettlerBuildSpaceStation() throws IOException{
-        
+        Testing.methodStart("Settler.SettlerBuildSpaceStation()");
+        //check resources
+        System.out.println("Check if resources is enough");
+        System.out.println("If resources is enough input 1");
+        System.out.println("If resources is not-enough input 2");
+        BufferedReader br = new BufferedReader(new 
+        InputStreamReader(System.in));
+        String enter = br.readLine();
+        int num = Integer.parseInt(enter);
+        if(num == 1){
+            //check settler in the Asteroid
+            System.out.println("Check if Settler is in an exist Asteroid");
+            System.out.println("Check if Settler is in an exist Asteroid input 1");
+            System.out.println("Check if Settler is in an not exist Asteroid input 2");
+            enter = br.readLine();
+            num = Integer.parseInt(enter);
+            if(num==1) {
+            //Settler build station and EndGame
+            System.out.println("You build a station successfully");
+            Testing.methodStart("EndGame()");
+            }else{
+                if(num==2)
+                System.out.println("Settler is not in an exist Asteroid");
+                System.out.println("EndGame");
+            }
+        }
+        else{
+            if(num==2)
+            System.out.println("Resource is not enough");
+        }
+        Testing.methodEnd("Settler.SettlerBuildSpaceStation()");
     }
 
 }
