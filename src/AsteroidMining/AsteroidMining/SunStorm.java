@@ -1,13 +1,21 @@
-package AsteroidMining;
-
+package AsteroidMining.AsteroidMining;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 //A system controlled Thing which can attack Settler and Robot
 public class SunStorm extends Thing implements Stepable{
 
     Field f = new Field();
+    private ArrayList<Asteroid> onwhichasteroid = new ArrayList<Asteroid>();
+    public ArrayList<Asteroid> GetOnWhich() {
+    	return onwhichasteroid;
+    }
+    public SunStorm(String string){
+        super(string);
+    }
+    
     //When Robot or Settler be touched then be called
     //And then check wheather they need be died
     public void Touch(Settler s) throws IOException{
